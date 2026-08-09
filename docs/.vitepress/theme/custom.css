@@ -1,0 +1,13 @@
+:root {
+    --vp-c-brand-1: #f06b58;
+    --vp-c-brand-2: #a92f22;
+    --vp-c-brand-3: #8d261c;
+
+    --vp-font-family-base: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+}
+
+.dark {
+    --vp-c-brand-1: #f06b58;
+    --vp-c-brand-2: #dc5947;
+    --vp-c-brand-3: #c74635;
+}

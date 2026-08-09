@@ -1,0 +1,15 @@
+.DS_Store
+
+coverage/
+dist/
+node_modules/
+.test-dist/
+
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/.vitepress/dist.stale-*/
+docs/.vitepress/.temp/
+docs/.vitepress/.temp.stale-*/
+docs/.vitepress/*.timestamp-*.mjs
+docs/public/cards.js
+docs/public/cards.js.map
