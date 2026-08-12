@@ -8,15 +8,25 @@ It has no runtime dependencies and includes TypeScript declarations.
 
 Use the package manager for your project:
 
-```sh
+::: code-group
+
+```sh [npm]
 npm install @bannon/cards
 ```
 
-```sh
+```sh [pnpm]
 pnpm add @bannon/cards
+```
+
+```sh [yarn]
 yarn add @bannon/cards
+```
+
+```sh [bun]
 bun add @bannon/cards
 ```
+
+:::
 
 The package requires Node.js 22 or newer when it is used in Node. It also works
 in browser applications that support ESM, either through a bundler or directly
@@ -44,9 +54,9 @@ import { Deck } from '@bannon/cards/cards.js';
 
 The standalone browser bundle is an ES module.
 
-### unpkg
+::: code-group
 
-```html
+```html [unpkg]
 <script type="module">
     import { Deck } from 'https://unpkg.com/@bannon/cards@latest/dist/cards.js';
 
@@ -55,16 +65,15 @@ The standalone browser bundle is an ES module.
 </script>
 ```
 
-### jsDelivr
-
-```html
+```html [jsDelivr]
 <script type="module">
-    import { Card } from 'https://cdn.jsdelivr.net/npm/@bannon/cards@latest/dist/cards.js';
+    import { Deck } from 'https://cdn.jsdelivr.net/npm/@bannon/cards@latest/dist/cards.js';
 
-    const card = new Card('QH');
-    console.log(card.toString()); // Q❤
+    const deck = new Deck().shuffle();
+    console.log(deck.size); // 52
 </script>
 ```
+:::
 
 The two CDNs serve the same `dist/cards.js` ESM bundle.
 
@@ -98,7 +107,7 @@ after building it and install that file in another project:
 npm run build
 npm pack
 cd ../my-card-game
-npm install ../cards/bannon-cards-1.0.0.tgz
+npm install ../cards/bannon-cards-{{PACKAGE_VERSION}}.tgz
 ```
 
 After that, use the normal package import:

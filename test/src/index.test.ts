@@ -14,6 +14,9 @@ describe('public package API', () => {
 
                 findRank: expect.any(Function),
                 findSuit: expect.any(Function),
+
+                BlackjackHandEvaluator: expect.any(Function),
+                PokerHandEvaluator: expect.any(Function),
             }),
         );
     });

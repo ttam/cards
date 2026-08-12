@@ -1,7 +1,7 @@
 # Card
 
 A `Card` is a single playing card.
-It's the main part of this library, and everything else (`Pile`, `Deck`, `Hand`) is just a collection of `Card`s.
+It's the main part of this library, and everything else ([`Pile`](./pile), [`Deck`](./deck), [`Hand`](./hand)) is just a collection of `Card`s.
 
 ## `new Card(code)`
 
@@ -17,7 +17,8 @@ card.suit; // 'hearts'
 card.value; // 14
 ```
 
-Ranks are `2`-`10`, `J`, `Q`, `K`, or `A`.
+Ranks are `2`-`10`, `J`, `Q`, `K`, or `A`. Numeric values `11`-`14` are
+also accepted for the face cards and Ace.
 Suits are `S`, `H`, `D`, `C`, or `♠`, `❤`, `♦`, `♣`.
 
 Anything else throws an error.

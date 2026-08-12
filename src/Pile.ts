@@ -43,13 +43,17 @@ export default class Pile {
         return this.cards.length;
     }
 
-    addCard(card: Card): this {
-        this.cards.push(card);
+    addCard(card: Card | string): this {
+        this.cards.push(typeof card === 'string' ? new Card(card) : card);
 
         return this;
     }
 
     burn(count = 1): this {
+        if (!Number.isInteger(count) || count < 0) {
+            throw new RangeError('Burn count must be a non-negative integer');
+        }
+
         if (this.cards.length < count) {
             throw new Error('Not enough cards to burn');
         }
@@ -61,8 +65,14 @@ export default class Pile {
         return this;
     }
 
-    cut(atOrSeed: number | string | null = null): this {
-        const at = typeof atOrSeed === 'number' ? atOrSeed : Math.floor(createRandom(atOrSeed)() * this.cards.length);
+    cut(atOrSeedOrRandom: number | string | Random | null = null): this {
+        const at =
+            typeof atOrSeedOrRandom === 'number'
+                ? atOrSeedOrRandom
+                : Math.floor(
+                      (typeof atOrSeedOrRandom === 'function' ? atOrSeedOrRandom : createRandom(atOrSeedOrRandom))() *
+                          this.cards.length,
+                  );
 
         if (!Number.isInteger(at) || at < 0 || at > this.cards.length) {
             throw new RangeError(`Cut position must be an integer from 0 to ${this.cards.length}`);
@@ -74,6 +84,10 @@ export default class Pile {
     }
 
     dealTo(targets: Dealable | Dealable[], countPerTarget = 1, options: DealOptions = {}): this {
+        if (!Number.isInteger(countPerTarget) || countPerTarget < 0) {
+            throw new RangeError('Count per target must be a non-negative integer');
+        }
+
         const { alternate = true } = options;
         const targetList = [targets].flat();
         const count = targetList.length * countPerTarget;
@@ -112,6 +126,10 @@ export default class Pile {
 
     removeCard(indexOrCard: number | Card | string = 0): Card {
         if (typeof indexOrCard === 'number') {
+            if (!Number.isInteger(indexOrCard) || indexOrCard < 0) {
+                throw new RangeError('Card index must be a non-negative integer');
+            }
+
             return this.removeCardAtIndex(indexOrCard);
         }
 

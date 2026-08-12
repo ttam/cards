@@ -31,6 +31,10 @@ describe('Pile', () => {
             expect(pile.size).toBe(1);
             expect(pile.isEmpty()).toBe(false);
         });
+
+        test('rejects an invalid card code', () => {
+            expect(() => new Pile().addCard('not a card')).toThrow('Invalid card: not a card');
+        });
     });
 
     describe('has', () => {
@@ -77,6 +81,13 @@ describe('Pile', () => {
             expect(() => pile.removeCard('5H')).toThrow('No card to remove');
             expect(labels(pile)).toEqual(['A', '2', '3', '4']);
         });
+
+        test.each([-1, 1.5])('rejects an invalid numeric index: %s', index => {
+            const pile = new Pile(['AH', '2H', '3H', '4H']);
+
+            expect(() => pile.removeCard(index)).toThrow('Card index must be a non-negative integer');
+            expect(labels(pile)).toEqual(['A', '2', '3', '4']);
+        });
     });
 
     describe('burn', () => {
@@ -92,6 +103,13 @@ describe('Pile', () => {
             const pile = new Pile(['AH', '2H', '3H', '4H']);
 
             expect(() => pile.burn(5)).toThrow('Not enough cards to burn');
+            expect(labels(pile)).toEqual(['A', '2', '3', '4']);
+        });
+
+        test.each([-1, 1.5])('rejects an invalid burn count: %s', count => {
+            const pile = new Pile(['AH', '2H', '3H', '4H']);
+
+            expect(() => pile.burn(count)).toThrow('Burn count must be a non-negative integer');
             expect(labels(pile)).toEqual(['A', '2', '3', '4']);
         });
     });
@@ -137,6 +155,15 @@ describe('Pile', () => {
             expect(labels(pile)).toEqual(['A', '2', '3', '4']);
             expect(first.cards).toEqual([]);
             expect(second.cards).toEqual([]);
+        });
+
+        test.each([-1, 1.5])('rejects an invalid count per target: %s', count => {
+            const pile = new Pile(['AH', '2H', '3H', '4H']);
+            const target = new Pile();
+
+            expect(() => pile.dealTo(target, count)).toThrow('Count per target must be a non-negative integer');
+            expect(labels(pile)).toEqual(['A', '2', '3', '4']);
+            expect(target.cards).toEqual([]);
         });
     });
 
@@ -203,6 +230,15 @@ describe('Pile', () => {
             const second = new Pile(['AH', '2H', '3H', '4H']).cut('demo');
 
             expect(labels(first)).toEqual(labels(second));
+        });
+
+        test('uses a supplied random function to choose the cut position', () => {
+            const random = jest.fn().mockReturnValue(0.5);
+            const pile = new Pile(['AH', '2H', '3H', '4H']);
+
+            expect(pile.cut(random)).toBe(pile);
+            expect(labels(pile)).toEqual(['3', '4', 'A', '2']);
+            expect(random).toHaveBeenCalledTimes(1);
         });
 
         test('rejects positions outside the pile', () => {

@@ -26,7 +26,7 @@ pile.cards.map(card => card.toString()); // ['A❤', '2❤']
 ```
 
 ## `addCard(card)`
-Adds one card to the bottom of the pile.
+Adds one [`Card`](./card) to the bottom of the pile and returns the pile.
 
 ```js
 const pile = new Pile();
@@ -44,7 +44,7 @@ It's really just `removeCard()` called `count` times with the
 result thrown away.
 
 Use `removeCard()` when you need to know the card that was removed, and
-`burn()` when you want to to discarding it "face down".
+`burn()` when you want to discard it "face down".
 
 ```js
 const pile = new Pile(['AH', '2H', '3H', '4H']);
@@ -61,6 +61,8 @@ pile.cards[0].toString(); // '4❤'
 `Error: Not enough cards to burn` and leaves the pile untouched rather than
 failing halfway through.
 
+The count must be a non-negative integer.
+
 ```js
 const pile = new Pile(['AH', '2H']);
 
@@ -73,10 +75,11 @@ try {
 pile.size; // 2, unchanged
 ```
 
-## `cut(atOrSeed = null)`
+## `cut(atOrSeedOrRandom = null)`
 Cuts the pile and returns it.
 
-You can optionally pass a numeric position or a string seed.
+You can optionally pass a numeric position, a string seed, or a custom random
+function.
 
 If a number is passed, the deck is cut at that position,
 moving the cards above it to the bottom. The position must be an integer between
@@ -125,6 +128,15 @@ second.cards.map(card => card.toString()); // the same order as first
 Removes cards from the pile and adds `countPerTarget` cards to each of the `targets` and returns the pile.
 
 By default, cards are dealt in a round-robin fashion, but you can pass `{ alternate: false }` to deal a block of cards to each target instead.
+The options object uses the exported `DealOptions` type:
+
+```ts
+interface DealOptions {
+    alternate?: boolean;
+}
+```
+
+`countPerTarget` must be a non-negative integer.
 
 ```js
 const pile = new Pile(['AH', '2H', '3H', '4H']);
@@ -162,6 +174,17 @@ try {
 
 ## `has(cardOrPredicate)`
 
+Returns `true` if the pile contains a matching card or any card that satisfies
+a predicate. Card instances and codes are compared by rank and suit.
+
+```js
+const pile = new Pile(['AH', '2D']);
+
+pile.has('AH'); // true
+pile.has(new Card('2D')); // true
+pile.has(card => card.suit === 'spades'); // false
+```
+
 ## `isEmpty()`
 Returns `true` when the pile has no cards left. Handy for checking a deck or
 hand before dealing or drawing from it.
@@ -172,9 +195,10 @@ new Pile(['AH', '2H']).isEmpty(); // false
 ```
 
 ## `removeCard(indexOrCard = 0)`
-Discards cards from the top of the pile and returns it
+Discards a card from the top of the pile and returns it.
 
 By default it removes the top card (index `0`), but you can pass a different index or card identifier to remove a specific card instead.
+Numeric indexes must be non-negative integers.
 
 ```js
 const pile = new Pile(['AH', '2H', '3H']);
@@ -205,14 +229,15 @@ try {
 }
 ```
 
-## `shuffle(seed = null)`
-Shuffles the pile returns it.
+## `shuffle(seedOrRandom = null)`
+Shuffles the pile and returns it.
 
 You can optionally pass a string or function seed when you need the result to be repeatable.
 
 Two piles shuffled with the same seed and the same cards will always end up in the same order.
 
-```js
+:::code-group
+```js [string]
 const first = new Pile(['AH', '2H', '3H', '4H']);
 const second = new Pile(['AH', '2H', '3H', '4H']);
 
@@ -223,7 +248,7 @@ first.cards.map(card => card.toString()); // the same order as second
 second.cards.map(card => card.toString()); // the same order as first
 ```
 
-```js
+```js [function]
 const randomFunction = () => 0.5;
 
 const first = new Pile(['AH', '2H', '3H', '4H']);
@@ -235,6 +260,7 @@ second.shuffle(randomFunction);
 first.cards.map(card => card.toString()); // the same order as second
 second.cards.map(card => card.toString()); // the same order as first
 ```
+:::
 
 With no seed passed, `shuffle()` uses `Math.random()`, so the order is different
 every time.
@@ -253,6 +279,3 @@ const pile = new Pile(['AH', '2H']);
 
 pile.size; // 2
 ```
-
-
-

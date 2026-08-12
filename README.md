@@ -77,7 +77,7 @@ https://cdn.jsdelivr.net/npm/@bannon/cards@latest/dist/cards.js
 ## Project layout
 
 ```text
-src/                    Card, Pile, Deck, Hand, ranks, and suits
+src/                    Card model, collections, identifiers, and hand evaluators
 test/                   Jest test suite, mirroring the source files
 ```
 
@@ -86,8 +86,8 @@ declarations (`dist/index.d.ts`).
 
 The standalone browser ESM bundle is `dist/cards.js`.
 
-Everything in the core: 
-`Card`, `Pile`, `Deck`, `Hand`, `ranks`, `findRank`, `suits` and `findSuit`
-is exported from the main `@bannon/cards` entry point.
+The main `@bannon/cards` entry point exports `Card`, `Pile`, `Deck`, `Hand`,
+`ranks`, `findRank`, `suits`, `findSuit`, `BlackjackHandEvaluator`, and
+`PokerHandEvaluator`, plus their public TypeScript types.
 
 Run `npm pack --dry-run` to inspect the exact publishable files.

@@ -12,3 +12,14 @@ export { default as suits, findSuit } from './Suits.js';
 export type { DealOptions } from './Pile.js';
 export type { Rank } from './Ranks.js';
 export type { Suit } from './Suits.js';
+
+// Blackjack
+export { default as BlackjackHandEvaluator } from './evaluators/BlackjackHandEvaluator.js';
+export type { BlackjackHandResult } from './evaluators/BlackjackHandEvaluator.js';
+
+// Hand evaluation
+export type { HandComparison, HandEvaluation, HandInput } from './evaluators/HandEvaluator.js';
+
+// Poker
+export { default as PokerHandEvaluator } from './evaluators/PokerHandEvaluator.js';
+export type { PokerHandResult } from './evaluators/PokerHandEvaluator.js';

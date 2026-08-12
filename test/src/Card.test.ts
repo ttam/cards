@@ -1,4 +1,6 @@
 import Card from '../../src/Card.js';
+import * as Ranks from '../../src/Ranks.js';
+import * as Suits from '../../src/Suits.js';
 
 describe('Card', () => {
     describe('constructor', () => {
@@ -20,6 +22,14 @@ describe('Card', () => {
 
         test.each(['', 'ace of hearts', '1S', '15S', 'A X', '10'])('rejects an invalid code: %s', code => {
             expect(() => new Card(code)).toThrow(`Invalid card: ${code}`);
+        });
+
+        test('rejects a card when its rank or suit cannot be resolved', () => {
+            jest.spyOn(Ranks, 'findRank').mockReturnValueOnce(undefined);
+            expect(() => new Card('AS')).toThrow('Invalid card: AS');
+
+            jest.spyOn(Suits, 'findSuit').mockReturnValueOnce(undefined);
+            expect(() => new Card('AS')).toThrow('Invalid card: AS');
         });
     });
 

@@ -1,4 +1,14 @@
 import { defineConfig } from 'vitepress';
+import { readFileSync } from 'node:fs';
+
+const packageManifest = JSON.parse(
+    readFileSync(new URL('../../package.json', import.meta.url), 'utf8'),
+) satisfies { version: string };
+
+const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+    <rect x="4" y="3" width="27" height="34" rx="6" fill="#201f1b" stroke="#f5f0e6" stroke-width="2"/>
+    <path d="M17.5 10 25 20l-7.5 10L10 20Z" fill="#f06b58"/>
+</svg>`;
 
 export default defineConfig({
     base: process.env.DOCS_BASE ?? '/cards/',
@@ -7,7 +17,15 @@ export default defineConfig({
     cleanUrls: true,
     head: [
         ['meta', { name: 'theme-color', content: '#17211a' }],
+        ['link', { rel: 'icon', href: `data:image/svg+xml,${encodeURIComponent(FAVICON_SVG)}` }],
     ],
+    markdown: {
+        preConfig(markdown) {
+            markdown.core.ruler.before('normalize', 'package-version', state => {
+                state.src = state.src.replaceAll('{{PACKAGE_VERSION}}', packageManifest.version);
+            });
+        },
+    },
     themeConfig: {
         logo: {
             light: '/logo-light.svg',
@@ -34,6 +52,14 @@ export default defineConfig({
                     { text: 'Pile', link: '/api/pile' },
                     { text: 'Hand', link: '/api/hand' },
                     { text: 'Deck', link: '/api/deck' },
+                    { text: 'Ranks and suits', link: '/api/ranks-and-suits' },
+                ],
+            },
+            {
+                text: 'Evaluators',
+                items: [
+                    { text: 'Blackjack', link: '/api/blackjack-hand-evaluator' },
+                    { text: 'Poker', link: '/api/poker-hand-evaluator' },
                 ],
             },
         ],
@@ -42,7 +68,12 @@ export default defineConfig({
         ],
         search: { provider: 'local' },
         footer: {
-            copyright: `Copyright © 2026 <a href="https://mattbannon.com/">Matt Bannon</a>.`
-        }
+            message: `Copyright © ${new Date().getFullYear()} <a href="https://mattbannon.com/">Matt Bannon</a>.`,
+            copyright: 'Released under the GNU GPLv3 or later.',
+        },
+        editLink: {
+            pattern: 'https://github.com/ttam/cards/edit/main/docs/:path',
+            text: 'Edit this page on GitHub',
+        },
     },
 });
