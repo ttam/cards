@@ -35,6 +35,7 @@ export default defineConfig({
         nav: [
             { text: 'Guide', link: '/guide/getting-started' },
             { text: 'API', link: '/api/' },
+            { text: 'Examples', link: '/examples/' },
         ],
         sidebar: [
             {
@@ -60,6 +61,14 @@ export default defineConfig({
                 items: [
                     { text: 'Blackjack', link: '/api/blackjack-hand-evaluator' },
                     { text: 'Poker', link: '/api/poker-hand-evaluator' },
+                ],
+            },
+            {
+                text: 'Examples',
+                items: [
+                    { text: 'Overview', link: '/examples/' },
+                    { text: 'Blackjack', link: '/examples/blackjack' },
+                    { text: 'Texas Hold \'em', link: '/examples/texas-hold-em' },
                 ],
             },
         ],

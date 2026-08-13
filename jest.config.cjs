@@ -18,6 +18,6 @@ module.exports = {
             },
         ],
     },
-    collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    collectCoverageFrom: ['<rootDir>/src/**/*.ts', '<rootDir>/examples/**/*.ts'],
     coverageDirectory: 'coverage',
 };
