@@ -24,6 +24,15 @@ export default defineConfig({
             markdown.core.ruler.before('normalize', 'package-version', state => {
                 state.src = state.src.replaceAll('{{PACKAGE_VERSION}}', packageManifest.version);
             });
+
+            markdown.core.ruler.before('normalize', 'source', state => {
+                state.src = state.src.replace(
+                    /<RunUiExample([^>]*)>([\s\S]*?)<\/RunUiExample>/g,
+                    (match, attributes: string, source: string) => {
+                        return `<RunUiExample source="${encodeURIComponent(source)}"></RunUiExample>`;
+                    }
+                );
+            });
         },
     },
     themeConfig: {
@@ -35,6 +44,7 @@ export default defineConfig({
         nav: [
             { text: 'Guide', link: '/guide/getting-started' },
             { text: 'API', link: '/api/' },
+            { text: 'UI', link: '/ui/' },
             { text: 'Examples', link: '/examples/' },
         ],
         sidebar: [
@@ -54,13 +64,23 @@ export default defineConfig({
                     { text: 'Hand', link: '/api/hand' },
                     { text: 'Deck', link: '/api/deck' },
                     { text: 'Ranks and suits', link: '/api/ranks-and-suits' },
+                    {
+                        text: 'Evaluators',
+                        items: [
+                            { text: 'Blackjack', link: '/api/blackjack-hand-evaluator' },
+                            { text: 'Poker', link: '/api/poker-hand-evaluator' },
+                        ],
+                    },
                 ],
             },
             {
-                text: 'Evaluators',
+                text: 'UI elements',
                 items: [
-                    { text: 'Blackjack', link: '/api/blackjack-hand-evaluator' },
-                    { text: 'Poker', link: '/api/poker-hand-evaluator' },
+                    { text: 'Overview', link: '/ui/' },
+                    { text: 'Card', link: '/ui/card' },
+                    { text: 'Hand', link: '/ui/hand' },
+                    { text: 'Pile', link: '/ui/pile' },
+                    { text: 'Theming', link: '/ui/theming' },
                 ],
             },
             {

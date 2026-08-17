@@ -32,7 +32,7 @@ The package requires Node.js 22 or newer when it is used in Node. It also works
 in browser applications that support ESM, either through a bundler or directly
 from a CDN.
 
-## Import the package
+### Import the package
 
 Import the named exports you need from `@bannon/cards`:
 
@@ -50,15 +50,30 @@ needs to name the browser bundle directly:
 import { Deck } from '@bannon/cards/cards.js';
 ```
 
+### Include the card UI
+
+The optional card UI is included in `@bannon/cards`, so it does not require a
+separate package. In an application that uses a bundler, import its stylesheet:
+
+```js
+import '@bannon/cards/cards.css';
+```
+
+The stylesheet includes the card faces and layout components. See the
+[Card UI guide](../ui/) for the available HTML classes and data attributes.
+The card-face SVG is resolved automatically; if you copy `cards.css` manually,
+also copy `assets/deck.svg` and preserve that relative path.
+
 ## Use a CDN
 
-The standalone browser bundle is an ES module.
+The standalone browser bundle is an ES module. These examples pin the package
+version; replace `@{{PACKAGE_VERSION}}` with `@latest` to follow new releases.
 
 ::: code-group
 
 ```html [unpkg]
 <script type="module">
-    import { Deck } from 'https://unpkg.com/@bannon/cards@latest/dist/cards.js';
+    import { Deck } from 'https://unpkg.com/@bannon/cards@{{PACKAGE_VERSION}}/dist/cards.js';
 
     const deck = new Deck().shuffle();
     console.log(deck.size); // 52
@@ -67,7 +82,7 @@ The standalone browser bundle is an ES module.
 
 ```html [jsDelivr]
 <script type="module">
-    import { Deck } from 'https://cdn.jsdelivr.net/npm/@bannon/cards@latest/dist/cards.js';
+    import { Deck } from 'https://cdn.jsdelivr.net/npm/@bannon/cards@{{PACKAGE_VERSION}}/dist/cards.js';
 
     const deck = new Deck().shuffle();
     console.log(deck.size); // 52
@@ -76,6 +91,22 @@ The standalone browser bundle is an ES module.
 :::
 
 The two CDNs serve the same `dist/cards.js` ESM bundle.
+
+### Include the card UI
+
+Load the optional UI stylesheet from the same CDN:
+
+::: code-group
+
+```html [unpkg]
+<link rel="stylesheet" href="https://unpkg.com/@bannon/cards@{{PACKAGE_VERSION}}/dist/cards.css">
+```
+
+```html [jsDelivr]
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@bannon/cards@{{PACKAGE_VERSION}}/dist/cards.css">
+```
+
+:::
 
 ## Use a local checkout
 

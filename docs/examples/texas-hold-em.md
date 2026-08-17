@@ -8,7 +8,7 @@ It's a simple game of Texas Hold 'em with three players.
 
 <<< @/../examples/node/texas-hold-em.ts
 
-<RunExample example="texas-hold-em" />
+<RunCodeExample example="texas-hold-em" />
 
 ## Terminal
 

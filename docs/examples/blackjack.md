@@ -9,7 +9,7 @@ Each will hit until they either stand on 17 or bust.
 
 <<< @/../examples/node/blackjack.ts
 
-<RunExample example="blackjack" />
+<RunCodeExample example="blackjack" />
 
 ## Terminal
 

@@ -11,5 +11,7 @@ docs/.vitepress/dist.stale-*/
 docs/.vitepress/.temp/
 docs/.vitepress/.temp.stale-*/
 docs/.vitepress/*.timestamp-*.mjs
+docs/public/assets/deck.svg
+docs/public/cards.css
 docs/public/cards.js
 docs/public/cards.js.map

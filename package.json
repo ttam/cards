@@ -28,18 +28,24 @@
         "dist"
     ],
     "types": "./dist/index.d.ts",
-    "sideEffects": false,
+    "sideEffects": [
+        "./dist/cards.css"
+    ],
+    "style": "./dist/cards.css",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
             "import": "./dist/cards.js"
         },
-        "./cards.js": "./dist/cards.js"
+        "./cards.js": "./dist/cards.js",
+        "./cards.css": "./dist/cards.css",
+        "./assets/deck.svg": "./dist/assets/deck.svg"
     },
     "unpkg": "./dist/cards.js",
     "jsdelivr": "./dist/cards.js",
     "scripts": {
         "build": "npm run clean && rollup -c && node scripts/copy-browser-bundle.mjs",
+        "prepack": "npm run build",
         "dev": "rollup -c --watch",
         "clean": "rm -rf dist",
         "format": "prettier --write \"**/*.{cjs,js,mjs,ts,json}\"",
@@ -65,6 +71,7 @@
         "eslint-config-prettier": "10.1.8",
         "globals": "17.9.0",
         "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
         "prettier": "3.9.6",
         "rollup": "^4.0.0",
         "rollup-plugin-dts": "6.4.1",

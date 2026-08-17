@@ -6,12 +6,12 @@ and a player [`Hand`](./hand), along with [`blackjack`](./blackjack-hand-evaluat
 
 ## Core classes
 
-| Class | Purpose |
-| --- | --- |
-| [`Card`](./card) | Represents one rank and suit. |
+| Class            | Purpose                                                    |
+|------------------|------------------------------------------------------------|
+| [`Card`](./card) | Represents one rank and suit.                              |
 | [`Pile`](./pile) | Stores cards in order and provides shared card operations. |
-| [`Deck`](./deck) | Creates a standard 52-card deck. |
-| [`Hand`](./hand) | Represents a player's cards and formats them as a string. |
+| [`Deck`](./deck) | Creates a standard 52-card deck.                           |
+| [`Hand`](./hand) | Represents a player's cards and formats them as a string.  |
 
 `Deck` and `Hand` extend `Pile`. A typical flow is to create a deck, shuffle it,
 and deal cards into one or more hands:

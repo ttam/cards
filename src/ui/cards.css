@@ -1,0 +1,249 @@
+:root {
+    --cards-card-back-accent: #b91c1c;
+    --cards-card-back: #7f1d1d;
+    --cards-card-border: #b9b4aa;
+    --cards-card-flip-duration: 300ms;
+    --cards-card-radius: 0.28em;
+    --cards-card-width: 6.75em;
+    --cards-hand-fan-angle: 8deg;
+    --cards-hand-fan-radius: 12em;
+    --cards-hand-gap: 0.5em;
+    --cards-pile-badge-bg: #1a1a1a;
+    --cards-pile-badge-color: #ffffff;
+    --cards-pile-badge-font: system-ui, sans-serif;
+}
+
+.cards-card,
+.cards-pile {
+    aspect-ratio: 5 / 7;
+    inline-size: var(--cards-card-width);
+}
+
+.cards-card {
+    --cards-card-x: 0%;
+    --cards-card-y: 0%;
+
+    border-radius: var(--cards-card-radius);
+    box-sizing: border-box;
+    display: inline-block;
+    flex: 0 0 auto;
+    position: relative;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: transform var(--cards-card-flip-duration) ease-in-out;
+    vertical-align: top;
+
+    &::before,
+    &::after {
+        backface-visibility: hidden;
+        background-image: repeating-linear-gradient(
+                45deg,
+                var(--cards-card-back-accent) 0,
+                var(--cards-card-back-accent) 6px,
+                var(--cards-card-back) 6px,
+                var(--cards-card-back) 12px
+        );
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        border-radius: inherit;
+        content: '';
+        filter: drop-shadow(0px 0px calc(var(--cards-card-width) * 0.01) #000000);
+        inset: 0;
+        position: absolute;
+    }
+
+    &::after {
+        transform: rotateY(180deg);
+    }
+
+    &:is([data-joker='black'], [data-joker='red']),
+    &:is(
+            [data-rank='2'],
+            [data-rank='3'],
+            [data-rank='4'],
+            [data-rank='5'],
+            [data-rank='6'],
+            [data-rank='7'],
+            [data-rank='8'],
+            [data-rank='9'],
+            [data-rank='10'],
+            [data-rank='jack'],
+            [data-rank='queen'],
+            [data-rank='king'],
+            [data-rank='ace']
+        ):is([data-suit='clubs'], [data-suit='diamonds'], [data-suit='hearts'], [data-suit='spades']) {
+        &::before {
+            background-image: url('./assets/deck.svg');
+            background-position: var(--cards-card-x) var(--cards-card-y);
+            background-size: 1300% 500%;
+        }
+
+        &[data-rank='2'] { --cards-card-x: 0%; }
+        &[data-rank='3'] { --cards-card-x: 8.333333%; }
+        &[data-rank='4'] { --cards-card-x: 16.666667%; }
+        &[data-rank='5'] { --cards-card-x: 25%; }
+        &[data-rank='6'] { --cards-card-x: 33.333333%; }
+        &[data-rank='7'] { --cards-card-x: 41.666667%; }
+        &[data-rank='8'] { --cards-card-x: 50%; }
+        &[data-rank='9'] { --cards-card-x: 58.333333%; }
+        &[data-rank='10'] { --cards-card-x: 66.666667%; }
+        &[data-rank='jack'] { --cards-card-x: 75%; }
+        &[data-rank='queen'] { --cards-card-x: 83.333333%; }
+        &[data-rank='king'] { --cards-card-x: 91.666667%; }
+        &[data-rank='ace'] { --cards-card-x: 100%; }
+
+        &[data-suit='clubs'] { --cards-card-y: 0%; }
+        &[data-suit='diamonds'] { --cards-card-y: 25%; }
+        &[data-suit='hearts'] { --cards-card-y: 50%; }
+        &[data-suit='spades'] { --cards-card-y: 75%; }
+
+        &[data-joker='red'] { --cards-card-x: 0%; --cards-card-y: 100%; }
+        &[data-joker='black'] { --cards-card-x: 8.333333%; --cards-card-y: 100%; }
+    }
+
+    &[data-face-down] {
+        transform: rotateY(180deg);
+    }
+}
+
+.cards-pile:empty::before,
+.cards-pile[data-empty]::before {
+    border: 1px dashed var(--cards-card-border);
+    border-radius: var(--cards-card-radius);
+    box-sizing: border-box;
+    display: block;
+}
+
+.cards-pile {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+
+    &::before,
+    &::after {
+        background: repeating-linear-gradient(
+            45deg,
+            var(--cards-card-back-accent) 0,
+            var(--cards-card-back-accent) 6px,
+            var(--cards-card-back) 6px,
+            var(--cards-card-back) 12px
+        );
+        border: 1px solid var(--cards-card-back-accent);
+        border-radius: var(--cards-card-radius);
+        box-sizing: border-box;
+        content: '';
+        inset: 0;
+        position: absolute;
+    }
+
+    &::before {
+        translate: 6% -6%;
+        z-index: 0;
+    }
+
+    &::after {
+        translate: 3% -3%;
+        z-index: 1;
+    }
+
+    & > .cards-card {
+        inset: 0;
+        position: absolute;
+        z-index: 2;
+    }
+
+    & > [data-count] {
+        background: var(--cards-pile-badge-bg);
+        border-radius: 1em;
+        inset-block-end: -0.5em;
+        inset-inline-end: -0.5em;
+        box-sizing: border-box;
+        color: var(--cards-pile-badge-color);
+        font: 0.75em/1.2 var(--cards-pile-badge-font);
+        min-inline-size: 1.5em;
+        padding: 0.1em 0.25em;
+        position: absolute;
+        text-align: center;
+        z-index: 3;
+    }
+
+    &:empty::before,
+    &[data-empty]::before {
+        background: none;
+        border: 1px dashed var(--cards-card-border);
+        translate: none;
+    }
+
+    &:empty::after,
+    &[data-empty]::after,
+    &[data-empty] > .cards-card,
+    &[data-empty] > [data-count] {
+        display: none;
+    }
+}
+
+.cards-hand {
+    align-items: flex-start;
+    display: inline-flex;
+    gap: var(--cards-hand-gap);
+    vertical-align: top;
+
+    &[data-layout='fan'] {
+        --cards-hand-radius: var(--cards-hand-fan-radius);
+
+        aspect-ratio: 5 / 7;
+        display: inline-block;
+        inline-size: var(--cards-card-width);
+        position: relative;
+
+        & > .cards-card {
+            --cards-hand-angle: calc(var(--cards-hand-offset) * var(--cards-hand-fan-angle));
+            --cards-hand-offset: calc(sibling-index() - (sibling-count() + 1) / 2);
+
+            inset-block-start: 0;
+            inset-inline-start: 50%;
+            margin-inline-start: calc(var(--cards-card-width) / -2);
+            position: absolute;
+            rotate: var(--cards-hand-angle);
+            transform-origin: center 120%;
+            translate:
+                calc(sin(var(--cards-hand-angle)) * var(--cards-hand-radius))
+                calc((1 - cos(var(--cards-hand-angle))) * var(--cards-hand-radius));
+        }
+    }
+}
+
+.cards-pile[data-layout='tableau'] {
+    aspect-ratio: auto;
+    display: inline-block;
+    inline-size: var(--cards-card-width);
+    vertical-align: top;
+
+    & > .cards-card {
+        display: block;
+        margin-block-start: calc(var(--cards-pile-tableau-offset-hidden, 0.5em) - 140%);
+        position: static;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:is([data-rank][data-suit], [data-joker]):not([data-face-down])
+            + .cards-card:is([data-rank][data-suit], [data-joker]):not([data-face-down]) {
+            margin-block-start: calc(var(--cards-pile-tableau-offset, 1.8em) - 140%);
+        }
+    }
+
+    &:empty::before,
+    &[data-empty]::before {
+        aspect-ratio: 5 / 7;
+        content: '';
+        display: block;
+        inline-size: 100%;
+    }
+
+    &::before,
+    &::after {
+        display: none;
+    }
+}
