@@ -1,6 +1,6 @@
 {
     "name": "@bannon/cards",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "description": "A small TypeScript toolkit for building games with standard playing cards, with no runtime dependencies",
     "keywords": [
         "playing cards",

@@ -6,6 +6,16 @@ This changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 `npm version` updates it from the project's Conventional Commit history.
 
+## [1.0.0](https://github.com/ttam/cards/compare/v0.2.0...v1.0.0) (2026-08-18)
+
+### ⚠ BREAKING CHANGES
+
+* Card instances and exported rank and suit collections are now immutable.
+
+### Features
+
+* finalize the public API for 1.0 ([e663771](https://github.com/ttam/cards/commit/e6637714fe473ef045cd2db73566a61b4c8bc6e4))
+
 ## [0.2.0](https://github.com/ttam/cards/compare/v0.1.0...v0.2.0) (2026-08-17)
 
 ### Features
