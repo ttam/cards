@@ -3,6 +3,9 @@
 A `Card` is a single playing card.
 It's the main part of this library, and everything else ([`Pile`](./pile), [`Deck`](./deck), [`Hand`](./hand)) is just a collection of `Card`s.
 
+Cards are immutable value objects. Their `label`, `suit`, and `value` properties
+are fixed when the card is created.
+
 ## `new Card(code)`
 
 Creates a card from a rank and suit.

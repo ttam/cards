@@ -1,7 +1,9 @@
 # Ranks and suits
 
-Ranks and suits are the data used to create a [`Card`](./card). They are exported as arrays,
+Ranks and suits are the data used to create a [`Card`](./card). They are exported as readonly arrays
 with lookup helpers and `Rank` and `Suit` types, for building custom decks.
+
+The arrays and their entries are frozen at runtime; copy them before making customizations.
 
 You can import everything from the package entry point:
 
@@ -11,7 +13,7 @@ import { findRank, findSuit, ranks, suits, type Rank, type Suit } from '@bannon/
 
 ## Ranks
 
-`ranks` is a `Rank[]` ordered from `2` to `A`. Each rank has a `label` and
+`ranks` is a `readonly Rank[]` ordered from `2` to `A`. Each rank has a `label` and
 numeric `value`.
 
 ```ts
@@ -32,7 +34,7 @@ findRank('1'); // undefined
 
 ## Suits
 
-`suits` is a `Suit[]` containing hearts, diamonds, clubs, and spades, in that
+`suits` is a `readonly Suit[]` containing hearts, diamonds, clubs, and spades, in that
 order. Each suit has a `name`, `code`, `symbol`, and `color`.
 
 ```ts

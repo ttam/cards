@@ -2,9 +2,9 @@ import { findRank } from './Ranks.js';
 import { findSuit } from './Suits.js';
 
 export default class Card {
-    label: string;
-    suit: string;
-    value: number;
+    readonly label: string;
+    readonly suit: string;
+    readonly value: number;
 
     constructor(code: string) {
         const match = code
@@ -27,6 +27,8 @@ export default class Card {
         this.label = rank.label;
         this.suit = suit.name;
         this.value = rank.value;
+
+        Object.freeze(this);
     }
 
     equals(other: unknown): boolean {

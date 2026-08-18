@@ -6,6 +6,11 @@ describe('ranks', () => {
         expect(ranks.map(rank => rank.value)).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
     });
 
+    test('is immutable', () => {
+        expect(Object.isFrozen(ranks)).toBe(true);
+        expect(ranks.every(rank => Object.isFrozen(rank))).toBe(true);
+    });
+
     describe('findRank', () => {
         test('finds ranks by number or normalized label', () => {
             expect(findRank(14)).toEqual({ label: 'A', value: 14 });

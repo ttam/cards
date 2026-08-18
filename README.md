@@ -2,7 +2,9 @@
 
 A small, dependency-free toolkit for representing standard playing cards
 
-[Documentation](https://ttam.github.io/cards/)
+[Documentation](https://cards.js.org/)
+
+[Changelog](./CHANGELOG.md) · [Contributing](./CONTRIBUTING.md)
 
 ## Setup
 
@@ -58,21 +60,22 @@ https://cdn.jsdelivr.net/npm/@bannon/cards@latest/dist/cards.js
 
 ## Development
 
-| Command | Purpose |
-| --- | --- |
-| `npm test` | Run the Jest test suite against TypeScript source. |
-| `npm run typecheck` | Type-check the library and TypeScript examples. |
-| `npm run lint` | Check JavaScript and TypeScript for code-quality and style issues. |
-| `npm run lint:fix` | Apply ESLint's safe automatic fixes. |
-| `npm run format` | Format JavaScript, TypeScript, and configuration files with Prettier. |
-| `npm run format:check` | Check formatting without changing files. |
-| `npm run build` | Build ESM browser and declaration outputs. |
-| `npm run dev` | Rebuild package outputs on source changes. |
-| `npm run docs:dev` | Run the documentation site locally. |
-| `npm run docs:build` | Build the package and the documentation site. |
-| `npm run docs:preview` | Preview the built documentation site. |
-| `npm run coverage` | Create the coverage report. |
-| `npm run check` | Type-check, test, lint, verify formatting, and build. |
+| Command                           | Purpose                                                                          |
+|-----------------------------------|----------------------------------------------------------------------------------|
+| `npm test`                        | Run the Jest test suite against TypeScript source.                               |
+| `npm run typecheck`               | Type-check the library and TypeScript examples.                                  |
+| `npm run lint`                    | Check JavaScript and TypeScript for code-quality and style issues.               |
+| `npm run lint:fix`                | Apply ESLint's safe automatic fixes.                                             |
+| `npm run format`                  | Format JavaScript, TypeScript, and configuration files with Prettier.            |
+| `npm run format:check`            | Check formatting without changing files.                                         |
+| `npm run build`                   | Build ESM browser and declaration outputs.                                       |
+| `npm run dev`                     | Rebuild package outputs on source changes.                                       |
+| `npm run docs:dev`                | Run the documentation site locally.                                              |
+| `npm run docs:build`              | Build the package and the documentation site.                                    |
+| `npm run docs:preview`            | Preview the built documentation site.                                            |
+| `npm run coverage`                | Create the coverage report.                                                      |
+| `npm run changelog`               | Update the changelog from Conventional Commits; normally run by `npm version`.   |
+| `npm run check`                   | Type-check, test, lint, verify formatting and package exports, and build.        |
 
 ## Project layout
 

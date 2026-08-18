@@ -31,6 +31,14 @@ describe('Card', () => {
             jest.spyOn(Suits, 'findSuit').mockReturnValueOnce(undefined);
             expect(() => new Card('AS')).toThrow('Invalid card: AS');
         });
+
+        test('creates an immutable card', () => {
+            const card = new Card('AH');
+
+            expect(Object.isFrozen(card)).toBe(true);
+            expect(() => Object.assign(card, { suit: 'spades' })).toThrow(TypeError);
+            expect(card.toString()).toBe('A❤');
+        });
     });
 
     describe('equals', () => {

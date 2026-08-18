@@ -10,6 +10,11 @@ describe('suits', () => {
         ]);
     });
 
+    test('is immutable', () => {
+        expect(Object.isFrozen(suits)).toBe(true);
+        expect(suits.every(suit => Object.isFrozen(suit))).toBe(true);
+    });
+
     describe('findSuit', () => {
         test.each(['hearts', ' H ', '❤'])('finds hearts by %s', identifier => {
             expect(findSuit(identifier)).toEqual(suits[0]);

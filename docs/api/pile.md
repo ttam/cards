@@ -10,6 +10,8 @@ You probably won't need to directly create a `Pile` very often
 Creates a pile. You can optionally supply an array of cards to initialise it with.
 Cards are stored top to bottom in the public `cards` array, so `cards[0]` is always the top card.
 
+The array is mutable by design, allowing games to inspect or rearrange it directly.
+
 ```js
 const pile = new Pile();
 pile.cards; // []
@@ -170,7 +172,7 @@ try {
 } catch (error) {
     error.message; // 'Hand out of cards'
 }
-``` 
+```
 
 ## `has(cardOrPredicate)`
 
